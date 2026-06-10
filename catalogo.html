@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Pastelería La Foresta</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <h1>La Foresta</h1>
+
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="pedido.html">Pedido</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="catalogo-header">
+        <h2>Catálogo de productos</h2>
+        <p>Selecciona una categoría y descubre las opciones disponibles.</p>
+    </section>
+
+    <section class="categorias">
+        <button class="categoria-btn activo" onclick="mostrarCategoria('tortas')">Tortas</button>
+        <button class="categoria-btn" onclick="mostrarCategoria('personalizadas')">Tortas personalizadas</button>
+        <button class="categoria-btn" onclick="mostrarCategoria('bocaditos')">Bocaditos</button>
+        <button class="categoria-btn" onclick="mostrarCategoria('desayunos')">Desayunos</button>
+        <button class="categoria-btn" onclick="mostrarCategoria('queques')">Queques</button>
+        <button class="categoria-btn" onclick="mostrarCategoria('postres')">Postres</button>
+        <button class="categoria-btn" onclick="mostrarCategoria('helados')">Helados artesanales</button>
+    </section>
+
+    <!-- TORTAS -->
+    <section id="tortas" class="catalogo categoria-contenido activo">
+        <div class="producto-card">
+            <img src="img/productos/torta-chocolate.jpg" alt="Torta de chocolate">
+            <h3>Torta de chocolate</h3>
+            <p>Deliciosa torta con crema de chocolate, ideal para celebraciones.</p>
+            <span class="precio">Desde S/ 60.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+
+        <div class="producto-card">
+            <img src="img/productos/torta-tres-leches.jpg" alt="Torta tres leches">
+            <h3>Torta tres leches</h3>
+            <p>Bizcocho suave bañado en tres leches con decoración especial.</p>
+            <span class="precio">Desde S/ 55.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+
+        <div class="producto-card">
+            <img src="img/productos/torta-fresa.jpg" alt="Torta de fresa">
+            <h3>Torta de fresa</h3>
+            <p>Torta fresca con crema, fresas y decoración en tonos suaves.</p>
+            <span class="precio">Desde S/ 58.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+    </section>
+
+    <!-- TORTAS PERSONALIZADAS -->
+    <section id="personalizadas" class="catalogo categoria-contenido">
+        <div class="producto-card">
+            <img src="img/productos/torta-cumpleanos.jpg" alt="Torta personalizada de cumpleaños">
+            <h3>Torta de cumpleaños</h3>
+            <p>Personalizada con nombre, edad, temática y colores a elección.</p>
+            <span class="precio">Desde S/ 80.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+
+        <div class="producto-card">
+            <img src="img/productos/torta-infantil.jpg" alt="Torta infantil personalizada">
+            <h3>Torta infantil</h3>
+            <p>Diseños infantiles para cumpleaños, personajes y celebraciones.</p>
+            <span class="precio">Desde S/ 90.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+
+        <div class="producto-card">
+            <img src="img/productos/torta-evento.jpg" alt="Torta para evento">
+            <h3>Torta para eventos</h3>
+            <p>Diseños elegantes para aniversarios, reuniones o fechas especiales.</p>
+            <span class="precio">Desde S/ 100.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+    </section>
+
+    <!-- BOCADITOS -->
+    <section id="bocaditos" class="catalogo categoria-contenido">
+        <div class="producto-card">
+            <img src="img/productos/bocaditos-dulces.jpg" alt="Bocaditos dulces">
+            <h3>Bocaditos dulces</h3>
+            <p>Mini postres ideales para cumpleaños, reuniones y eventos.</p>
+            <span class="precio">Desde S/ 25.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+
+        <div class="producto-card">
+            <img src="img/productos/bocaditos-salados.jpg" alt="Bocaditos salados">
+            <h3>Bocaditos salados</h3>
+            <p>Opciones saladas para compartir en reuniones familiares.</p>
+            <span class="precio">Desde S/ 30.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+    </section>
+
+    <!-- DESAYUNOS -->
+    <section id="desayunos" class="catalogo categoria-contenido">
+        <div class="producto-card">
+            <img src="img/productos/desayuno-clasico.jpg" alt="Desayuno clasico">
+            <h3>Desayuno clásico</h3>
+            <p>Incluye bebida, panes, acompañamientos y detalle especial.</p>
+            <span class="precio">Desde S/ 35.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+
+        <div class="producto-card">
+            <img src="img/productos/desayuno-sorpresa.jpg" alt="Desayuno sorpresa">
+            <h3>Desayuno sorpresa</h3>
+            <p>Ideal para cumpleaños, aniversarios o fechas especiales.</p>
+            <span class="precio">Desde S/ 50.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+
+        <div class="producto-card">
+            <img src="img/productos/empanadas.jpg" alt="Empanadas">
+            <h3>Empanadas</h3>
+            <p>Empanadas horneadas, ideales para acompañar desayunos, lonches o reuniones.</p>
+            <span class="precio">Desde S/ 5.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+    </section>
+
+    <!-- QUEQUES -->
+    <section id="queques" class="catalogo categoria-contenido">
+        <div class="producto-card">
+            <img src="img/productos/queque-vainilla.jpg" alt="Queque de vainilla">
+            <h3>Queque de vainilla</h3>
+            <p>Queque suave y esponjoso, perfecto para acompañar con café.</p>
+            <span class="precio">Desde S/ 18.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+
+        <div class="producto-card">
+            <img src="img/productos/queque-naranja.jpg" alt="Queque de naranja">
+            <h3>Queque de naranja</h3>
+            <p>Preparado con un sabor casero y aroma natural a naranja.</p>
+            <span class="precio">Desde S/ 20.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+    </section>
+
+    <!-- POSTRES -->
+    <section id="postres" class="catalogo categoria-contenido">
+        <div class="producto-card">
+            <img src="img/productos/cheesecake.jpg" alt="Cheesecake">
+            <h3>Cheesecake</h3>
+            <p>Postre cremoso con base crocante y cobertura de fruta.</p>
+            <span class="precio">Desde S/ 9.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+
+        <div class="producto-card">
+            <img src="img/productos/tres-leches-vaso.jpg" alt="Tres leches en vaso">
+            <h3>Tres leches en vaso</h3>
+            <p>Porción individual de tres leches, práctica y deliciosa.</p>
+            <span class="precio">Desde S/ 8.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+
+        <div class="producto-card">
+            <img src="img/productos/pie-limon.jpg" alt="Pie de limón">
+            <h3>Pie de limón</h3>
+            <p>Postre dulce con crema de limón y merengue suave.</p>
+            <span class="precio">Desde S/ 8.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+    </section>
+
+    <!-- HELADOS ARTESANALES -->
+    <section id="helados" class="catalogo categoria-contenido">
+        <div class="producto-card">
+            <img src="img/productos/helado-fresa.jpg" alt="Helado artesanal de fresa">
+            <h3>Helado de fresa</h3>
+            <p>Helado artesanal cremoso con sabor a fresa natural.</p>
+            <span class="precio">Desde S/ 7.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+
+        <div class="producto-card">
+            <img src="img/productos/helado-chocolate.jpg" alt="Helado artesanal de chocolate">
+            <h3>Helado de chocolate</h3>
+            <p>Helado artesanal con intenso sabor a chocolate.</p>
+            <span class="precio">Desde S/ 7.00</span>
+            <a href="pedido.html" class="btn-catalogo">Pedir ahora</a>
+        </div>
+    </section>
+
+    <section class="pedido-rapido">
+        <h2>¿Ya elegiste tu producto?</h2>
+        <p>Completa el formulario y personaliza los detalles de tu pedido.</p>
+        <a href="pedido.html" class="btn-pedido">Realizar pedido</a>
+    </section>
+
+    <footer>
+        <p>© 2026 Pastelería La Foresta - Todos los derechos reservados</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

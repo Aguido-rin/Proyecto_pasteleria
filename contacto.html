@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Pastelería La Foresta</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="img/logo.png" alt="Logo Pastelería La Foresta">
+            </div>
+
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="pedido.html">Pedido</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="contacto-header">
+        <h2>Contáctanos</h2>
+        <p>Estamos listos para ayudarte con tus pedidos y celebraciones especiales.</p>
+    </section>
+
+    <section class="contacto-contenedor">
+
+        <div class="contacto-info">
+            <h3>Información de contacto</h3>
+
+            <div class="contacto-item">
+                <h4>Dirección</h4>
+                <p>Pastelería La Foresta - Tarapacá</p>
+            </div>
+
+            <div class="contacto-item">
+                <h4>WhatsApp</h4>
+                <p>+51 987 654 321</p>
+            </div>
+
+            <div class="contacto-item">
+                <h4>Correo electrónico</h4>
+                <p>laforesta@gmail.com</p>
+            </div>
+
+            <div class="contacto-item">
+                <h4>Horario de atención</h4>
+                <p>Lunes a sábado: 8:00 a.m. - 8:00 p.m.</p>
+                <p>Domingos: 9:00 a.m. - 2:00 p.m.</p>
+            </div>
+
+            <div class="contacto-item">
+                <h4>Redes sociales</h4>
+                <p>Facebook: Pastelería La Foresta</p>
+                <p>Instagram: @laforesta_pasteleria</p>
+            </div>
+        </div>
+
+        <div class="contacto-formulario">
+            <h3>Envíanos un mensaje</h3>
+
+            <form id="formContacto">
+                <div class="form-grupo">
+                    <label for="nombreContacto">Nombre completo</label>
+                    <input type="text" id="nombreContacto" placeholder="Ingresa tu nombre">
+                </div>
+
+                <div class="form-grupo">
+                    <label for="correoContacto">Correo electrónico</label>
+                    <input type="email" id="correoContacto" placeholder="ejemplo@gmail.com">
+                </div>
+
+                <div class="form-grupo">
+                    <label for="mensajeContacto">Mensaje</label>
+                    <textarea id="mensajeContacto" rows="5" placeholder="Escribe tu consulta o mensaje"></textarea>
+                </div>
+
+                <button type="submit" class="btn-enviar">Enviar mensaje</button>
+
+                <p id="mensajeContactoTexto" class="mensaje-pedido"></p>
+            </form>
+        </div>
+
+    </section>
+
+    <section class="mapa-contacto">
+        <h3>Ubicación referencial</h3>
+        <div class="mapa-placeholder">
+            <p>Mapa de ubicación de Pastelería La Foresta</p>
+            <p>Tarapacá, Perú</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Pastelería La Foresta - Todos los derechos reservados</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

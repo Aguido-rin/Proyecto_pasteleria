@@ -734,38 +734,6 @@ footer {
     line-height: 1.5;
 }
 
-.mapa-contacto {
-    background: linear-gradient(135deg, #ffe5ec, #e0f4ff);
-    padding: 50px 35px;
-    text-align: center;
-}
-
-.mapa-contacto h3 {
-    color: #c9184a;
-    font-size: 30px;
-    margin-bottom: 25px;
-}
-
-.mapa-placeholder {
-    max-width: 900px;
-    height: 260px;
-    margin: 0 auto;
-    background-color: white;
-    border: 2px dashed #ffafcc;
-    border-radius: 25px;
-    color: #5c5470;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 6px 18px rgba(189, 224, 254, 0.7);
-}
-
-.mapa-placeholder p {
-    font-size: 18px;
-    margin: 5px 0;
-}
-
 /* RESPONSIVE CONTACTO */
 
 @media (max-width: 768px) {

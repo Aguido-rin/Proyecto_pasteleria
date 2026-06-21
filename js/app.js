@@ -109,3 +109,28 @@ if (productoSelect && saborSelect) {
         }
     });
 }
+
+/*CONTACTO*/
+const formContacto = document.getElementById("formContacto");
+
+if (formContacto) {
+    formContacto.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const nombreContacto = document.getElementById("nombreContacto").value.trim();
+        const correoContacto = document.getElementById("correoContacto").value.trim();
+        const mensajeContacto = document.getElementById("mensajeContacto").value.trim();
+        const mensajeContactoTexto = document.getElementById("mensajeContactoTexto");
+
+        if (nombreContacto === "" || correoContacto === "" || mensajeContacto === "") {
+            mensajeContactoTexto.textContent = "Por favor, completa todos los campos.";
+            mensajeContactoTexto.style.color = "#c9184a";
+            return;
+        }
+
+        mensajeContactoTexto.textContent = "Tu mensaje fue enviado correctamente. Te responderemos pronto.";
+        mensajeContactoTexto.style.color = "#2e7d32";
+
+        formContacto.reset();
+    });
+}

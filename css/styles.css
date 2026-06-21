@@ -782,3 +782,33 @@ footer {
         height: 220px;
     }
 }
+
+/* REDES SOCIALES CONTACTO */
+
+.redes-sociales {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.red-social {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #5c5470;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.red-social img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.red-social:hover {
+    color: #d63384;
+    transform: translateX(5px);
+}

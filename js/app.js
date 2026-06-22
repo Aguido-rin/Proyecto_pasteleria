@@ -1,7 +1,7 @@
 console.log("Página de Pastelería La Foresta cargada correctamente.");
 
 /*CATALOGO*/
-function mostrarCategoria(categoriaId) {
+function mostrarCategoria(categoriaId, botonSeleccionado) {
     const categorias = document.querySelectorAll(".categoria-contenido");
     const botones = document.querySelectorAll(".categoria-btn");
 
@@ -14,8 +14,7 @@ function mostrarCategoria(categoriaId) {
     });
 
     document.getElementById(categoriaId).classList.add("activo");
-
-    event.target.classList.add("activo");
+    botonSeleccionado.classList.add("activo");
 }
 
 /*PEDIDO*/

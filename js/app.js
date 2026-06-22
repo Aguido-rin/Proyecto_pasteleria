@@ -216,20 +216,28 @@ function mostrarPedidosAdmin() {
     pedidos.forEach((pedido, index) => {
         const fila = document.createElement("tr");
 
-        fila.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${pedido.nombre}</td>
-            <td>${pedido.telefono}</td>
-            <td>${pedido.producto}</td>
-            <td>${pedido.sabor}</td>
-            <td>${pedido.tamano}</td>
-            <td>${pedido.cantidad}</td>
-            <td>${pedido.fecha}</td>
-            <td><span class="estado-pendiente">${pedido.estado}</span></td>
-            <td>
-                <button class="btn-ver" onclick="verDetallePedido(${index})">Ver</button>
-            </td>
-        `;
+    fila.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${pedido.nombre}</td>
+        <td>${pedido.telefono}</td>
+        <td>${pedido.producto}</td>
+        <td>${pedido.sabor}</td>
+        <td>${pedido.tamano}</td>
+        <td>${pedido.cantidad}</td>
+        <td>${pedido.fecha}</td>
+        <td>
+            <select class="select-estado" onchange="cambiarEstadoPedido(${index}, this.value)">
+                <option value="Pendiente" ${pedido.estado === "Pendiente" ? "selected" : ""}>Pendiente</option>
+                <option value="En proceso" ${pedido.estado === "En proceso" ? "selected" : ""}>En proceso</option>
+                <option value="Listo" ${pedido.estado === "Listo" ? "selected" : ""}>Listo</option>
+                <option value="Entregado" ${pedido.estado === "Entregado" ? "selected" : ""}>Entregado</option>
+                <option value="Cancelado" ${pedido.estado === "Cancelado" ? "selected" : ""}>Cancelado</option>
+            </select>
+        </td>
+        <td>
+            <button class="btn-ver" onclick="verDetallePedido(${index})">Ver</button>
+        </td>
+    `;
 
         tablaPedidos.appendChild(fila);
     });
@@ -255,6 +263,24 @@ function verDetallePedido(index) {
             <p><strong>Estado:</strong> ${pedido.estado}</p>
         </div>
     `;
+}
+
+function cambiarEstadoPedido(index, nuevoEstado) {
+    let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+
+    pedidos[index].estado = nuevoEstado;
+
+    localStorage.setItem("pedidos", JSON.stringify(pedidos));
+
+    mostrarPedidosAdmin();
+
+    const contenidoDetalle = document.getElementById("contenidoDetalle");
+
+    if (contenidoDetalle) {
+        contenidoDetalle.innerHTML = `
+            <p>El estado del pedido fue actualizado a <strong>${nuevoEstado}</strong>.</p>
+        `;
+    }
 }
 
 /* ========================= */

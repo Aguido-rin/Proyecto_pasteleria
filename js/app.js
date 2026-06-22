@@ -256,3 +256,39 @@ function verDetallePedido(index) {
         </div>
     `;
 }
+
+/* ========================= */
+/* LOGIN ADMIN */
+/* ========================= */
+
+const formLogin = document.getElementById("formLogin");
+
+if (formLogin) {
+    formLogin.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const usuario = document.getElementById("usuario").value.trim();
+        const clave = document.getElementById("clave").value.trim();
+        const mensajeLogin = document.getElementById("mensajeLogin");
+
+        if (usuario === "admin" && clave === "123456") {
+            localStorage.setItem("adminLogueado", "true");
+            window.location.href = "admin.html";
+        } else {
+            mensajeLogin.textContent = "Usuario o contraseña incorrectos.";
+            mensajeLogin.style.color = "#c9184a";
+        }
+    });
+}
+
+/* ========================= */
+/* PROTEGER VISTA ADMIN */
+/* ========================= */
+
+if (window.location.pathname.includes("admin.html")) {
+    const adminLogueado = localStorage.getItem("adminLogueado");
+
+    if (adminLogueado !== "true") {
+        window.location.href = "login.html";
+    }
+}

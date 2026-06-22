@@ -134,3 +134,131 @@ if (formContacto) {
         formContacto.reset();
     });
 }
+
+/* ========================= */
+/* REGISTRO TEMPORAL DE PEDIDOS */
+/* ========================= */
+
+const formPedido = document.getElementById("formPedido");
+
+if (formPedido) {
+    formPedido.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const nombre = document.getElementById("nombre").value;
+        const telefono = document.getElementById("telefono").value;
+        const producto = document.getElementById("producto").value;
+        const sabor = document.getElementById("sabor").value;
+        const tamano = document.getElementById("tamano").value;
+        const cantidad = document.getElementById("cantidad").value;
+        const fecha = document.getElementById("fecha").value;
+        const descripcion = document.getElementById("descripcion").value;
+        const comentarios = document.getElementById("comentarios").value;
+
+        const nuevoPedido = {
+            nombre: nombre,
+            telefono: telefono,
+            producto: producto,
+            sabor: sabor,
+            tamano: tamano,
+            cantidad: cantidad,
+            fecha: fecha,
+            descripcion: descripcion,
+            comentarios: comentarios,
+            estado: "Pendiente"
+        };
+
+        let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+
+        pedidos.push(nuevoPedido);
+
+        localStorage.setItem("pedidos", JSON.stringify(pedidos));
+
+        alert("Pedido registrado correctamente.");
+
+        formPedido.reset();
+    });
+}
+
+/* ========================= */
+/* MOSTRAR PEDIDOS EN ADMIN */
+/* ========================= */
+
+const tablaPedidos = document.getElementById("tablaPedidos");
+
+if (tablaPedidos) {
+    mostrarPedidosAdmin();
+}
+
+function mostrarPedidosAdmin() {
+    const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+
+    const totalPedidos = document.getElementById("totalPedidos");
+    const pedidosPendientes = document.getElementById("pedidosPendientes");
+    const ultimoPedido = document.getElementById("ultimoPedido");
+
+    tablaPedidos.innerHTML = "";
+
+    totalPedidos.textContent = pedidos.length;
+
+    const pendientes = pedidos.filter(pedido => pedido.estado === "Pendiente");
+    pedidosPendientes.textContent = pendientes.length;
+
+    if (pedidos.length > 0) {
+        ultimoPedido.textContent = pedidos[pedidos.length - 1].nombre;
+    } else {
+        ultimoPedido.textContent = "Sin pedidos";
+    }
+
+    if (pedidos.length === 0) {
+        tablaPedidos.innerHTML = `
+            <tr>
+                <td colspan="10">Todavía no hay pedidos registrados.</td>
+            </tr>
+        `;
+        return;
+    }
+
+    pedidos.forEach((pedido, index) => {
+        const fila = document.createElement("tr");
+
+        fila.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${pedido.nombre}</td>
+            <td>${pedido.telefono}</td>
+            <td>${pedido.producto}</td>
+            <td>${pedido.sabor}</td>
+            <td>${pedido.tamano}</td>
+            <td>${pedido.cantidad}</td>
+            <td>${pedido.fecha}</td>
+            <td><span class="estado-pendiente">${pedido.estado}</span></td>
+            <td>
+                <button class="btn-ver" onclick="verDetallePedido(${index})">Ver</button>
+            </td>
+        `;
+
+        tablaPedidos.appendChild(fila);
+    });
+}
+
+function verDetallePedido(index) {
+    const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+    const pedido = pedidos[index];
+
+    const contenidoDetalle = document.getElementById("contenidoDetalle");
+
+    contenidoDetalle.innerHTML = `
+        <div class="detalle-card">
+            <p><strong>Cliente:</strong> ${pedido.nombre}</p>
+            <p><strong>Celular:</strong> ${pedido.telefono}</p>
+            <p><strong>Producto:</strong> ${pedido.producto}</p>
+            <p><strong>Sabor o variedad:</strong> ${pedido.sabor}</p>
+            <p><strong>Tamaño:</strong> ${pedido.tamano}</p>
+            <p><strong>Cantidad:</strong> ${pedido.cantidad}</p>
+            <p><strong>Fecha de entrega:</strong> ${pedido.fecha}</p>
+            <p><strong>Descripción:</strong> ${pedido.descripcion}</p>
+            <p><strong>Comentarios:</strong> ${pedido.comentarios || "Sin comentarios"}</p>
+            <p><strong>Estado:</strong> ${pedido.estado}</p>
+        </div>
+    `;
+}

@@ -799,3 +799,22 @@ footer {
 .whatsapp-contacto:hover {
     color: #25D366;
 }
+
+.correo-contacto {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #33334d;
+    font-size: 18px;
+}
+
+.icono-correo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.correo-contacto:hover {
+    color: #d44638;
+}

@@ -798,3 +798,166 @@ footer {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
 }
+
+/* ========================= */
+/* VISTA ADMIN */
+/* ========================= */
+
+.admin-main {
+    padding: 40px 8%;
+    background-color: #fff8fb;
+}
+
+.admin-hero {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.admin-hero h1 {
+    color: #d76c9c;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.admin-hero p {
+    color: #555;
+    font-size: 18px;
+}
+
+.admin-resumen {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.admin-card {
+    background-color: #ffffff;
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 2px solid #f8cfe0;
+}
+
+.admin-card h3 {
+    color: #d76c9c;
+    margin-bottom: 12px;
+    font-size: 20px;
+}
+
+.admin-card p {
+    color: #444;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.admin-tabla-section {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+    margin-bottom: 35px;
+}
+
+.admin-tabla-section h2 {
+    color: #d76c9c;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+.tabla-pedidos {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+.tabla-pedidos th,
+.tabla-pedidos td {
+    padding: 14px;
+    text-align: center;
+    border-bottom: 1px solid #f1c7d9;
+    font-size: 15px;
+}
+
+.tabla-pedidos th {
+    background-color: #f8cfe0;
+    color: #7a3e58;
+}
+
+.tabla-pedidos tr:hover {
+    background-color: #fff0f6;
+}
+
+.estado-pendiente {
+    background-color: #ffe6f0;
+    color: #c75382;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.btn-ver {
+    background-color: #b8e6f1;
+    color: #315d68;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.btn-ver:hover {
+    background-color: #9bd8e6;
+    transform: translateY(-2px);
+}
+
+.detalle-pedido {
+    background-color: #ffffff;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+}
+
+.detalle-pedido h2 {
+    color: #d76c9c;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.detalle-card {
+    background-color: #fff8fb;
+    border: 2px solid #f8cfe0;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.detalle-card p {
+    margin-bottom: 10px;
+    color: #444;
+    font-size: 16px;
+}
+
+.detalle-card strong {
+    color: #d76c9c;
+}
+
+/* Responsive admin */
+@media (max-width: 768px) {
+    .admin-resumen {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-hero h1 {
+        font-size: 28px;
+    }
+
+    .admin-main {
+        padding: 30px 5%;
+    }
+}

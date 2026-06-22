@@ -760,79 +760,28 @@ footer {
     margin-top: 8px;
 }
 
-.red-social {
+.contacto-link {
     display: flex;
     align-items: center;
     gap: 12px;
     text-decoration: none;
     color: #5c5470;
     font-size: 16px;
-    transition: 0.3s;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.red-social img {
+.icono-contacto,
+.contacto-link img {
     width: 32px;
     height: 32px;
     object-fit: contain;
 }
 
-.red-social:hover {
-    color: #d63384;
+.contacto-link:hover {
     transform: translateX(5px);
-}
-
-.whatsapp-contacto {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    color: #4b4b6b;
-    font-size: 18px;
-}
-
-.icono-whatsapp {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-}
-
-.whatsapp-contacto:hover {
-    color: #25D366;
-}
-
-.correo-contacto {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: #33334d;
-    font-size: 18px;
-}
-
-.icono-correo {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-}
-
-.correo-contacto:hover {
-    color: #d44638;
-}
-
-.whatsapp-contacto,
-.correo-contacto {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: #33334d;
-    font-size: 18px;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.whatsapp-contacto:hover,
-.correo-contacto:hover {
-    transform: translateX(8px);
+    color: #d63384;
 }
 
 .whatsapp-contacto:hover {

@@ -255,6 +255,7 @@ function verDetallePedido(index) {
         <div class="detalle-card">
             <p><strong>Cliente:</strong> ${pedido.nombre}</p>
             <p><strong>Celular:</strong> ${pedido.telefono}</p>
+            <p><strong>Correo:</strong> ${pedido.correo || "No registrado"}</p>
             <p><strong>Producto:</strong> ${pedido.producto}</p>
             <p><strong>Sabor o variedad:</strong> ${pedido.sabor}</p>
             <p><strong>Tamaño:</strong> ${pedido.tamano}</p>

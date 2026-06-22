@@ -1087,3 +1087,58 @@ footer {
 .select-estado:focus {
     border-color: #9bd8e6;
 }
+
+/* ========================= */
+/* MENÚ ADMIN */
+/* ========================= */
+
+.admin-navbar {
+    background: linear-gradient(90deg, #f8cfe0, #b8e6f1);
+    border-bottom: 3px solid #ffffff;
+}
+
+.admin-menu {
+    list-style: none;
+    display: flex;
+    gap: 22px;
+    align-items: center;
+}
+
+.admin-menu a {
+    text-decoration: none;
+    color: #5c5470;
+    font-weight: bold;
+    padding: 9px 14px;
+    border-radius: 18px;
+    transition: 0.3s ease;
+}
+
+.admin-menu a:hover {
+    background-color: #fff8fb;
+    color: #d63384;
+    transform: translateY(-2px);
+}
+
+.admin-menu a.activo {
+    background-color: #fff8fb;
+    color: #d63384;
+}
+
+.btn-cerrar-sesion {
+    background-color: #d76c9c;
+    color: white !important;
+}
+
+.btn-cerrar-sesion:hover {
+    background-color: #c75382 !important;
+    color: white !important;
+}
+
+/* Responsive menú admin */
+@media (max-width: 768px) {
+    .admin-menu {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+}

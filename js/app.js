@@ -19,32 +19,6 @@ function mostrarCategoria(categoriaId) {
 }
 
 /*PEDIDO*/
-const formPedido = document.getElementById("formPedido");
-
-if (formPedido) {
-    formPedido.addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        const nombre = document.getElementById("nombre").value.trim();
-        const telefono = document.getElementById("telefono").value.trim();
-        const producto = document.getElementById("producto").value;
-        const fecha = document.getElementById("fecha").value;
-        const descripcion = document.getElementById("descripcion").value.trim();
-        const sabor = document.getElementById("sabor").value;
-        const mensaje = document.getElementById("mensajePedido");
-
-if (nombre === "" || telefono === "" || producto === "" || sabor === "" || fecha === "" || descripcion === "") {            mensaje.textContent = "Por favor, completa los campos obligatorios del pedido.";
-            mensaje.style.color = "#c9184a";
-            return;
-        }
-
-        mensaje.textContent = "Tu pedido fue registrado correctamente. La pastelería se comunicará contigo pronto.";
-        mensaje.style.color = "#2e7d32";
-
-        formPedido.reset();
-    });
-}
-
 const productoSelect = document.getElementById("producto");
 const saborSelect = document.getElementById("sabor");
 
@@ -139,21 +113,37 @@ if (formContacto) {
 /* REGISTRO TEMPORAL DE PEDIDOS */
 /* ========================= */
 
-const formPedido = document.getElementById("formPedido");
+const formularioPedido = document.getElementById("formPedido");
 
-if (formPedido) {
-    formPedido.addEventListener("submit", function(event) {
+if (formularioPedido) {
+    formularioPedido.addEventListener("submit", function(event) {
         event.preventDefault();
 
-        const nombre = document.getElementById("nombre").value;
-        const telefono = document.getElementById("telefono").value;
+        const nombre = document.getElementById("nombre").value.trim();
+        const telefono = document.getElementById("telefono").value.trim();
         const producto = document.getElementById("producto").value;
         const sabor = document.getElementById("sabor").value;
         const tamano = document.getElementById("tamano").value;
         const cantidad = document.getElementById("cantidad").value;
         const fecha = document.getElementById("fecha").value;
-        const descripcion = document.getElementById("descripcion").value;
-        const comentarios = document.getElementById("comentarios").value;
+        const descripcion = document.getElementById("descripcion").value.trim();
+        const comentarios = document.getElementById("comentarios").value.trim();
+        const mensaje = document.getElementById("mensajePedido");
+
+        if (
+            nombre === "" ||
+            telefono === "" ||
+            producto === "" ||
+            sabor === "" ||
+            tamano === "" ||
+            cantidad === "" ||
+            fecha === "" ||
+            descripcion === ""
+        ) {
+            mensaje.textContent = "Por favor, completa los campos obligatorios del pedido.";
+            mensaje.style.color = "#c9184a";
+            return;
+        }
 
         const nuevoPedido = {
             nombre: nombre,
@@ -174,9 +164,13 @@ if (formPedido) {
 
         localStorage.setItem("pedidos", JSON.stringify(pedidos));
 
-        alert("Pedido registrado correctamente.");
+        mensaje.textContent = "Tu pedido fue registrado correctamente. La pastelería se comunicará contigo pronto.";
+        mensaje.style.color = "#2e7d32";
 
-        formPedido.reset();
+        formularioPedido.reset();
+
+        const saborSelect = document.getElementById("sabor");
+        saborSelect.innerHTML = `<option value="">Primero selecciona un producto</option>`;
     });
 }
 

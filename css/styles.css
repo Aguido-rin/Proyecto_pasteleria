@@ -780,3 +780,22 @@ footer {
     color: #d63384;
     transform: translateX(5px);
 }
+
+.whatsapp-contacto {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #4b4b6b;
+    font-size: 18px;
+}
+
+.icono-whatsapp {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.whatsapp-contacto:hover {
+    color: #25D366;
+}

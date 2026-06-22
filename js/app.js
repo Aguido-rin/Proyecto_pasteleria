@@ -121,6 +121,7 @@ if (formularioPedido) {
 
         const nombre = document.getElementById("nombre").value.trim();
         const telefono = document.getElementById("telefono").value.trim();
+        const correo = document.getElementById("correo").value.trim();
         const producto = document.getElementById("producto").value;
         const sabor = document.getElementById("sabor").value;
         const tamano = document.getElementById("tamano").value;
@@ -148,6 +149,7 @@ if (formularioPedido) {
         const nuevoPedido = {
             nombre: nombre,
             telefono: telefono,
+            correo: correo,
             producto: producto,
             sabor: sabor,
             tamano: tamano,

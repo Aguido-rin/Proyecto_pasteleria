@@ -292,3 +292,8 @@ if (window.location.pathname.includes("admin.html")) {
         window.location.href = "login.html";
     }
 }
+
+function cerrarSesion() {
+    localStorage.removeItem("adminLogueado");
+    window.location.href = "login.html";
+}

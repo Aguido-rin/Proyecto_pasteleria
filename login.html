@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin - La Foresta</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="login-body">
+
+    <main class="login-main">
+        <section class="login-card">
+            <div class="login-logo">
+                <img src="img/logo.png" alt="Logo Pastelería La Foresta">
+            </div>
+
+            <h1>Acceso Administrador</h1>
+            <p>Ingresa tus datos para revisar los pedidos.</p>
+
+            <form id="formLogin" class="form-login">
+                <div class="form-grupo">
+                    <label for="usuario">Usuario</label>
+                    <input type="text" id="usuario" placeholder="Ingresa tu usuario">
+                </div>
+
+                <div class="form-grupo">
+                    <label for="clave">Contraseña</label>
+                    <input type="password" id="clave" placeholder="Ingresa tu contraseña">
+                </div>
+
+                <button type="submit" class="btn-login">Ingresar</button>
+
+                <p id="mensajeLogin" class="mensaje-login"></p>
+            </form>
+
+            <a href="index.html" class="volver-cliente">Volver a la página principal</a>
+        </section>
+    </main>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

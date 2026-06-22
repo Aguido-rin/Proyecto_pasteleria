@@ -9,18 +9,16 @@
 <body>
 
     <header>
-        <nav class="navbar">
+        <nav class="navbar admin-navbar">
             <div class="logo">
                 <img src="img/logo.png" alt="Logo Pastelería La Foresta">
             </div>
-
-            <ul class="menu">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Catálogo</a></li>
-                <li><a href="pedido.html">Pedido</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="admin.html" class="activo">Admin</a></li>
-                <li><a href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
+        
+            <ul class="admin-menu">
+                <li><a href="admin.html" class="activo">Panel Admin</a></li>
+                <li><a href="#pedidosAdmin">Pedidos</a></li>
+                <li><a href="#detallePedido">Detalle</a></li>
+                <li><a href="#" class="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar sesión</a></li>
             </ul>
         </nav>
     </header>
@@ -48,7 +46,7 @@
             </div>
         </section>
 
-        <section class="admin-tabla-section">
+        <section class="admin-tabla-section" id="pedidosAdmin">
             <h2>Lista de pedidos</h2>
 
             <div class="tabla-contenedor">

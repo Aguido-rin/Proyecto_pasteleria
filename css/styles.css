@@ -791,3 +791,10 @@ footer {
 .correo-contacto:hover {
     color: #d44638;
 }
+
+.contacto-link span,
+.red-social span,
+.contacto-item p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}

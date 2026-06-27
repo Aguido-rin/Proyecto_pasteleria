@@ -109,13 +109,14 @@ if (formContacto) {
 }
 
 /* ========================= */
-/* REGISTRO TEMPORAL DE PEDIDOS */
+/* REGISTRO REAL DE PEDIDOS */
+/* PHP + MYSQL */
 /* ========================= */
 
 const formularioPedido = document.getElementById("formPedido");
 
 if (formularioPedido) {
-    formularioPedido.addEventListener("submit", function(event) {
+    formularioPedido.addEventListener("submit", async function(event) {
         event.preventDefault();
 
         const nombre = document.getElementById("nombre").value.trim();
@@ -133,6 +134,7 @@ if (formularioPedido) {
         if (
             nombre === "" ||
             telefono === "" ||
+            correo === "" ||
             producto === "" ||
             sabor === "" ||
             tamano === "" ||
@@ -155,31 +157,46 @@ if (formularioPedido) {
             cantidad: cantidad,
             fecha: fecha,
             descripcion: descripcion,
-            comentarios: comentarios,
-            estado: "Pendiente"
+            comentarios: comentarios
         };
 
-        let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+        try {
+            const respuesta = await fetch("php/guardar_pedido.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(nuevoPedido)
+            });
 
-        pedidos.push(nuevoPedido);
+            const resultado = await respuesta.json();
 
-        localStorage.setItem("pedidos", JSON.stringify(pedidos));
+            if (resultado.success) {
+                mensaje.textContent = resultado.mensaje;
+                mensaje.style.color = "#2e7d32";
 
-        mensaje.textContent = "Tu pedido fue registrado correctamente. La pastelería se comunicará contigo pronto.";
-        mensaje.style.color = "#2e7d32";
+                formularioPedido.reset();
 
-        formularioPedido.reset();
+                const saborSelect = document.getElementById("sabor");
+                saborSelect.innerHTML = `<option value="">Primero selecciona un producto</option>`;
+            } else {
+                mensaje.textContent = resultado.mensaje;
+                mensaje.style.color = "#c9184a";
+            }
 
-        const saborSelect = document.getElementById("sabor");
-        saborSelect.innerHTML = `<option value="">Primero selecciona un producto</option>`;
+        } catch (error) {
+            mensaje.textContent = "No se pudo registrar el pedido. Verifica que Apache y MySQL estén activos.";
+            mensaje.style.color = "#c9184a";
+        }
     });
 }
 
 /* ========================= */
-/* MOSTRAR PEDIDOS EN ADMIN */
+/* MOSTRAR PEDIDOS REALES EN ADMIN */
 /* ========================= */
 
 const tablaPedidos = document.getElementById("tablaPedidos");
+let pedidosAdmin = [];
 
 if (tablaPedidos) {
     mostrarPedidosAdmin();
@@ -201,9 +218,7 @@ if (ordenFecha) {
     });
 }
 
-function mostrarPedidosAdmin() {
-    const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
-
+async function mostrarPedidosAdmin() {
     const contadorPendientes = document.getElementById("contadorPendientes");
     const contadorEnProceso = document.getElementById("contadorEnProceso");
     const contadorListos = document.getElementById("contadorListos");
@@ -212,96 +227,98 @@ function mostrarPedidosAdmin() {
 
     tablaPedidos.innerHTML = "";
 
-    const pendientes = pedidos.filter(pedido => pedido.estado === "Pendiente");
-    const enProceso = pedidos.filter(pedido => pedido.estado === "En proceso");
-    const listos = pedidos.filter(pedido => pedido.estado === "Listo");
-
-    contadorPendientes.textContent = pendientes.length;
-    contadorEnProceso.textContent = enProceso.length;
-    contadorListos.textContent = listos.length;
-
     let textoBusqueda = "";
+    let tipoOrden = "";
 
     if (buscarCliente) {
-        textoBusqueda = buscarCliente.value.toLowerCase().trim();
+        textoBusqueda = buscarCliente.value.trim();
     }
-
-    let pedidosFiltrados = pedidos.filter(pedido => {
-        const nombre = pedido.nombre ? pedido.nombre.toLowerCase() : "";
-        const telefono = pedido.telefono ? pedido.telefono.toLowerCase() : "";
-
-        return (
-            nombre.includes(textoBusqueda) ||
-            telefono.includes(textoBusqueda)
-        );
-    });
 
     if (ordenFecha) {
-        const tipoOrden = ordenFecha.value;
+        tipoOrden = ordenFecha.value;
+    }
 
-        if (tipoOrden === "proxima") {
-            pedidosFiltrados.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+    try {
+        const respuesta = await fetch(
+            `php/listar_pedidos.php?busqueda=${encodeURIComponent(textoBusqueda)}&orden=${encodeURIComponent(tipoOrden)}`
+        );
+
+        const resultado = await respuesta.json();
+
+        if (!resultado.success) {
+            tablaPedidos.innerHTML = `
+                <tr>
+                    <td colspan="10">No se pudieron cargar los pedidos.</td>
+                </tr>
+            `;
+            return;
         }
 
-        if (tipoOrden === "lejana") {
-            pedidosFiltrados.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+        pedidosAdmin = resultado.pedidos;
+
+        contadorPendientes.textContent = resultado.contadores.pendientes;
+        contadorEnProceso.textContent = resultado.contadores.enProceso;
+        contadorListos.textContent = resultado.contadores.listos;
+
+        if (pedidosAdmin.length === 0) {
+            tablaPedidos.innerHTML = `
+                <tr>
+                    <td colspan="10">Todavía no hay pedidos registrados.</td>
+                </tr>
+            `;
+            return;
         }
-    }
 
-    if (pedidos.length === 0) {
+        pedidosAdmin.forEach((pedido, index) => {
+            const fila = document.createElement("tr");
+
+            fila.innerHTML = `
+                <td>${pedido.id}</td>
+                <td>${pedido.nombre}</td>
+                <td>${pedido.telefono}</td>
+                <td>${pedido.producto}</td>
+                <td>${pedido.sabor}</td>
+                <td>${pedido.tamano}</td>
+                <td>${pedido.cantidad}</td>
+                <td>${pedido.fecha}</td>
+                <td>
+                    <select class="select-estado" onchange="cambiarEstadoPedido(${pedido.id}, this.value)">
+                        <option value="Pendiente" ${pedido.estado === "Pendiente" ? "selected" : ""}>Pendiente</option>
+                        <option value="En proceso" ${pedido.estado === "En proceso" ? "selected" : ""}>En proceso</option>
+                        <option value="Listo" ${pedido.estado === "Listo" ? "selected" : ""}>Listo</option>
+                        <option value="Entregado" ${pedido.estado === "Entregado" ? "selected" : ""}>Entregado</option>
+                        <option value="Cancelado" ${pedido.estado === "Cancelado" ? "selected" : ""}>Cancelado</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="btn-ver" onclick="verDetallePedido(${index})">Ver</button>
+                </td>
+            `;
+
+            tablaPedidos.appendChild(fila);
+        });
+
+    } catch (error) {
         tablaPedidos.innerHTML = `
             <tr>
-                <td colspan="10">Todavía no hay pedidos registrados.</td>
+                <td colspan="10">Error al conectar con PHP. Verifica que el proyecto esté en htdocs y Apache esté activo.</td>
             </tr>
         `;
-        return;
     }
-
-    if (pedidosFiltrados.length === 0) {
-        tablaPedidos.innerHTML = `
-            <tr>
-                <td colspan="10">No se encontraron pedidos para esa búsqueda.</td>
-            </tr>
-        `;
-        return;
-    }
-
-    pedidosFiltrados.forEach((pedido) => {
-        const indiceReal = pedidos.indexOf(pedido);
-        const fila = document.createElement("tr");
-
-        fila.innerHTML = `
-            <td>${indiceReal + 1}</td>
-            <td>${pedido.nombre}</td>
-            <td>${pedido.telefono}</td>
-            <td>${pedido.producto}</td>
-            <td>${pedido.sabor}</td>
-            <td>${pedido.tamano}</td>
-            <td>${pedido.cantidad}</td>
-            <td>${pedido.fecha}</td>
-            <td>
-                <select class="select-estado" onchange="cambiarEstadoPedido(${indiceReal}, this.value)">
-                    <option value="Pendiente" ${pedido.estado === "Pendiente" ? "selected" : ""}>Pendiente</option>
-                    <option value="En proceso" ${pedido.estado === "En proceso" ? "selected" : ""}>En proceso</option>
-                    <option value="Listo" ${pedido.estado === "Listo" ? "selected" : ""}>Listo</option>
-                    <option value="Entregado" ${pedido.estado === "Entregado" ? "selected" : ""}>Entregado</option>
-                    <option value="Cancelado" ${pedido.estado === "Cancelado" ? "selected" : ""}>Cancelado</option>
-                </select>
-            </td>
-            <td>
-                <button class="btn-ver" onclick="verDetallePedido(${indiceReal})">Ver</button>
-            </td>
-        `;
-
-        tablaPedidos.appendChild(fila);
-    });
 }
 
-function verDetallePedido(index) {
-    const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
-    const pedido = pedidos[index];
+/* ========================= */
+/* VER DETALLE DEL PEDIDO */
+/* ========================= */
 
+function verDetallePedido(index) {
+    const pedido = pedidosAdmin[index];
     const contenidoDetalle = document.getElementById("contenidoDetalle");
+
+    if (!pedido) {
+        contenidoDetalle.innerHTML = `<p>No se encontró información del pedido.</p>`;
+        return;
+    }
 
     contenidoDetalle.innerHTML = `
         <div class="detalle-card">
@@ -320,21 +337,45 @@ function verDetallePedido(index) {
     `;
 }
 
-function cambiarEstadoPedido(index, nuevoEstado) {
-    let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+/* ========================= */
+/* CAMBIAR ESTADO DEL PEDIDO */
+/* ========================= */
 
-    pedidos[index].estado = nuevoEstado;
-
-    localStorage.setItem("pedidos", JSON.stringify(pedidos));
-
-    mostrarPedidosAdmin();
-
+async function cambiarEstadoPedido(idPedido, nuevoEstado) {
     const contenidoDetalle = document.getElementById("contenidoDetalle");
 
-    if (contenidoDetalle) {
-        contenidoDetalle.innerHTML = `
-            <p>El estado del pedido fue actualizado a <strong>${nuevoEstado}</strong>.</p>
-        `;
+    try {
+        const respuesta = await fetch("php/actualizar_estado.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: idPedido,
+                estado: nuevoEstado
+            })
+        });
+
+        const resultado = await respuesta.json();
+
+        if (resultado.success) {
+            await mostrarPedidosAdmin();
+
+            if (contenidoDetalle) {
+                contenidoDetalle.innerHTML = `
+                    <p>El estado del pedido fue actualizado a <strong>${nuevoEstado}</strong>.</p>
+                `;
+            }
+        } else {
+            if (contenidoDetalle) {
+                contenidoDetalle.innerHTML = `<p>${resultado.mensaje}</p>`;
+            }
+        }
+
+    } catch (error) {
+        if (contenidoDetalle) {
+            contenidoDetalle.innerHTML = `<p>No se pudo actualizar el estado del pedido.</p>`;
+        }
     }
 }
 
@@ -373,6 +414,10 @@ if (window.location.pathname.includes("admin.html")) {
         window.location.href = "login.html";
     }
 }
+
+/* ========================= */
+/* CERRAR SESIÓN */
+/* ========================= */
 
 function cerrarSesion() {
     localStorage.removeItem("adminLogueado");

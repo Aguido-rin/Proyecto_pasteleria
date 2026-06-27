@@ -108,11 +108,7 @@ if (formContacto) {
     });
 }
 
-/* ========================= */
 /* REGISTRO REAL DE PEDIDOS */
-/* PHP + MYSQL */
-/* ========================= */
-
 const formularioPedido = document.getElementById("formPedido");
 
 if (formularioPedido) {
@@ -191,10 +187,7 @@ if (formularioPedido) {
     });
 }
 
-/* ========================= */
 /* MOSTRAR PEDIDOS REALES EN ADMIN */
-/* ========================= */
-
 const tablaPedidos = document.getElementById("tablaPedidos");
 let pedidosAdmin = [];
 
@@ -216,6 +209,20 @@ if (ordenFecha) {
     ordenFecha.addEventListener("change", function() {
         mostrarPedidosAdmin();
     });
+}
+
+/* FORMATEAR FECHA: de 2026-06-30 a 30/06/2026 */
+function formatearFecha(fecha) {
+    if (!fecha) {
+        return "";
+    }
+
+    const partes = fecha.split("-");
+    const anio = partes[0];
+    const mes = partes[1];
+    const dia = partes[2];
+
+    return `${dia}/${mes}/${anio}`;
 }
 
 async function mostrarPedidosAdmin() {
@@ -280,7 +287,7 @@ async function mostrarPedidosAdmin() {
                 <td>${pedido.sabor}</td>
                 <td>${pedido.tamano}</td>
                 <td>${pedido.cantidad}</td>
-                <td>${pedido.fecha}</td>
+                <td>${formatearFecha(pedido.fecha)}</td>
                 <td>
                     <select class="select-estado" onchange="cambiarEstadoPedido(${pedido.id}, this.value)">
                         <option value="Pendiente" ${pedido.estado === "Pendiente" ? "selected" : ""}>Pendiente</option>
@@ -307,10 +314,7 @@ async function mostrarPedidosAdmin() {
     }
 }
 
-/* ========================= */
 /* VER DETALLE DEL PEDIDO */
-/* ========================= */
-
 function verDetallePedido(index) {
     const pedido = pedidosAdmin[index];
     const contenidoDetalle = document.getElementById("contenidoDetalle");
@@ -337,10 +341,7 @@ function verDetallePedido(index) {
     `;
 }
 
-/* ========================= */
 /* CAMBIAR ESTADO DEL PEDIDO */
-/* ========================= */
-
 async function cambiarEstadoPedido(idPedido, nuevoEstado) {
     const contenidoDetalle = document.getElementById("contenidoDetalle");
 
@@ -379,10 +380,7 @@ async function cambiarEstadoPedido(idPedido, nuevoEstado) {
     }
 }
 
-/* ========================= */
 /* LOGIN ADMIN */
-/* ========================= */
-
 const formLogin = document.getElementById("formLogin");
 
 if (formLogin) {
@@ -403,10 +401,7 @@ if (formLogin) {
     });
 }
 
-/* ========================= */
 /* PROTEGER VISTA ADMIN */
-/* ========================= */
-
 if (window.location.pathname.includes("admin.html")) {
     const adminLogueado = localStorage.getItem("adminLogueado");
 
@@ -415,10 +410,7 @@ if (window.location.pathname.includes("admin.html")) {
     }
 }
 
-/* ========================= */
 /* CERRAR SESIÓN */
-/* ========================= */
-
 function cerrarSesion() {
     localStorage.removeItem("adminLogueado");
     window.location.href = "login.html";

@@ -52,9 +52,20 @@
                         <input 
                             type="text" 
                             id="buscarCliente" 
-                            placeholder="Buscar por cliente, celular o correo..."
+                            placeholder="Buscar por cliente o celular"
                         >
                     </div>
+
+                    <div class="orden-admin">
+                        <label for="ordenFecha">Ordenar por fecha de entrega:</label>
+                    
+                        <select id="ordenFecha">
+                            <option value="">Orden normal</option>
+                            <option value="proxima">Fecha más próxima</option>
+                            <option value="lejana">Fecha más lejana</option>
+                        </select>
+                    </div>
+            
             <div class="tabla-contenedor">
                 <table class="tabla-pedidos">
                     <thead>
@@ -73,7 +84,6 @@
                     </thead>
 
                     <tbody id="tablaPedidos">
-                        <!-- Aquí aparecerán los pedidos -->
                     </tbody>
                 </table>
             </div>

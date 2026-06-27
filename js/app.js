@@ -179,10 +179,22 @@ if (formularioPedido) {
 /* MOSTRAR PEDIDOS EN ADMIN */
 /* ========================= */
 
+/* ========================= */
+/* MOSTRAR PEDIDOS EN ADMIN */
+/* ========================= */
+
 const tablaPedidos = document.getElementById("tablaPedidos");
 
 if (tablaPedidos) {
     mostrarPedidosAdmin();
+}
+
+const buscarCliente = document.getElementById("buscarCliente");
+
+if (buscarCliente) {
+    buscarCliente.addEventListener("input", function() {
+        mostrarPedidosAdmin();
+    });
 }
 
 function mostrarPedidosAdmin() {
@@ -191,6 +203,7 @@ function mostrarPedidosAdmin() {
     const contadorPendientes = document.getElementById("contadorPendientes");
     const contadorEnProceso = document.getElementById("contadorEnProceso");
     const contadorListos = document.getElementById("contadorListos");
+    const buscarCliente = document.getElementById("buscarCliente");
 
     tablaPedidos.innerHTML = "";
 
@@ -202,6 +215,24 @@ function mostrarPedidosAdmin() {
     contadorEnProceso.textContent = enProceso.length;
     contadorListos.textContent = listos.length;
 
+    let textoBusqueda = "";
+
+    if (buscarCliente) {
+        textoBusqueda = buscarCliente.value.toLowerCase().trim();
+    }
+
+    const pedidosFiltrados = pedidos.filter(pedido => {
+        const nombre = pedido.nombre ? pedido.nombre.toLowerCase() : "";
+        const telefono = pedido.telefono ? pedido.telefono.toLowerCase() : "";
+        const correo = pedido.correo ? pedido.correo.toLowerCase() : "";
+
+        return (
+            nombre.includes(textoBusqueda) ||
+            telefono.includes(textoBusqueda) ||
+            correo.includes(textoBusqueda)
+        );
+    });
+
     if (pedidos.length === 0) {
         tablaPedidos.innerHTML = `
             <tr>
@@ -211,11 +242,21 @@ function mostrarPedidosAdmin() {
         return;
     }
 
-    pedidos.forEach((pedido, index) => {
+    if (pedidosFiltrados.length === 0) {
+        tablaPedidos.innerHTML = `
+            <tr>
+                <td colspan="10">No se encontraron pedidos para esa búsqueda.</td>
+            </tr>
+        `;
+        return;
+    }
+
+    pedidosFiltrados.forEach((pedido) => {
+        const indiceReal = pedidos.indexOf(pedido);
         const fila = document.createElement("tr");
 
         fila.innerHTML = `
-            <td>${index + 1}</td>
+            <td>${indiceReal + 1}</td>
             <td>${pedido.nombre}</td>
             <td>${pedido.telefono}</td>
             <td>${pedido.producto}</td>
@@ -224,7 +265,7 @@ function mostrarPedidosAdmin() {
             <td>${pedido.cantidad}</td>
             <td>${pedido.fecha}</td>
             <td>
-                <select class="select-estado" onchange="cambiarEstadoPedido(${index}, this.value)">
+                <select class="select-estado" onchange="cambiarEstadoPedido(${indiceReal}, this.value)">
                     <option value="Pendiente" ${pedido.estado === "Pendiente" ? "selected" : ""}>Pendiente</option>
                     <option value="En proceso" ${pedido.estado === "En proceso" ? "selected" : ""}>En proceso</option>
                     <option value="Listo" ${pedido.estado === "Listo" ? "selected" : ""}>Listo</option>
@@ -233,7 +274,7 @@ function mostrarPedidosAdmin() {
                 </select>
             </td>
             <td>
-                <button class="btn-ver" onclick="verDetallePedido(${index})">Ver</button>
+                <button class="btn-ver" onclick="verDetallePedido(${indiceReal})">Ver</button>
             </td>
         `;
 

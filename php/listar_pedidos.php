@@ -15,7 +15,7 @@ $sql = "
         pr.nombre AS sabor,
         de.tamano,
         de.cantidad,
-        pe.fecha_entrega AS fecha,
+        DATE_FORMAT(pe.fecha_entrega, '%d/%m/%Y') AS fecha,
         pe.descripcion,
         pe.comentarios,
         pe.estado

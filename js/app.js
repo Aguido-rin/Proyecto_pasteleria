@@ -179,10 +179,6 @@ if (formularioPedido) {
 /* MOSTRAR PEDIDOS EN ADMIN */
 /* ========================= */
 
-/* ========================= */
-/* MOSTRAR PEDIDOS EN ADMIN */
-/* ========================= */
-
 const tablaPedidos = document.getElementById("tablaPedidos");
 
 if (tablaPedidos) {
@@ -197,6 +193,14 @@ if (buscarCliente) {
     });
 }
 
+const ordenFecha = document.getElementById("ordenFecha");
+
+if (ordenFecha) {
+    ordenFecha.addEventListener("change", function() {
+        mostrarPedidosAdmin();
+    });
+}
+
 function mostrarPedidosAdmin() {
     const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
 
@@ -204,6 +208,7 @@ function mostrarPedidosAdmin() {
     const contadorEnProceso = document.getElementById("contadorEnProceso");
     const contadorListos = document.getElementById("contadorListos");
     const buscarCliente = document.getElementById("buscarCliente");
+    const ordenFecha = document.getElementById("ordenFecha");
 
     tablaPedidos.innerHTML = "";
 
@@ -221,17 +226,27 @@ function mostrarPedidosAdmin() {
         textoBusqueda = buscarCliente.value.toLowerCase().trim();
     }
 
-    const pedidosFiltrados = pedidos.filter(pedido => {
+    let pedidosFiltrados = pedidos.filter(pedido => {
         const nombre = pedido.nombre ? pedido.nombre.toLowerCase() : "";
         const telefono = pedido.telefono ? pedido.telefono.toLowerCase() : "";
-        const correo = pedido.correo ? pedido.correo.toLowerCase() : "";
 
         return (
             nombre.includes(textoBusqueda) ||
-            telefono.includes(textoBusqueda) ||
-            correo.includes(textoBusqueda)
+            telefono.includes(textoBusqueda)
         );
     });
+
+    if (ordenFecha) {
+        const tipoOrden = ordenFecha.value;
+
+        if (tipoOrden === "proxima") {
+            pedidosFiltrados.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+        }
+
+        if (tipoOrden === "lejana") {
+            pedidosFiltrados.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+        }
+    }
 
     if (pedidos.length === 0) {
         tablaPedidos.innerHTML = `

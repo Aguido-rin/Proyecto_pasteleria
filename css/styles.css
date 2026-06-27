@@ -1142,3 +1142,30 @@ footer {
         gap: 12px;
     }
 }
+
+/* ========================= */
+/* BUSCADOR ADMIN */
+/* ========================= */
+
+.buscador-admin {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.buscador-admin input {
+    width: 100%;
+    max-width: 450px;
+    padding: 13px 18px;
+    border: 2px solid #f8cfe0;
+    border-radius: 20px;
+    outline: none;
+    font-size: 15px;
+    background-color: #fff8fb;
+    color: #444;
+}
+
+.buscador-admin input:focus {
+    border-color: #9bd8e6;
+    box-shadow: 0 0 6px rgba(155, 216, 230, 0.6);
+}

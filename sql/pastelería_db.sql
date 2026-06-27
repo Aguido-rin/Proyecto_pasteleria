@@ -52,10 +52,30 @@ CREATE TABLE order_detail (
 -- ==========================================
 
 INSERT INTO category (name) VALUES 
-('Torta'), ('Torta personalizada'), ('Bocaditos'), 
-('Desayuno'), ('Queque'), ('Postre'), ('Helado artesanal');
+('Torta'), 
+('Torta personalizada'), 
+('Bocaditos'), 
+('Desayuno'), 
+('Queque'), 
+('Postre'), 
+('Helado artesanal');
 
 INSERT INTO product (category_id, name) VALUES 
-(1, 'Torta de chocolate'), (1, 'Torta tres leches'), (1, 'Torta de fresa'),
-(2, 'Torta de cumpleaños'), (2, 'Torta infantil'), (2, 'Torta para eventos'),
-(3, 'Bocaditos dulces'), (3, 'Bocaditos salados');
+(1, 'Torta de chocolate'), 
+(1, 'Torta tres leches'), 
+(1, 'Torta de fresa'),
+(2, 'Torta de cumpleaños'), 
+(2, 'Torta infantil'), 
+(2, 'Torta para eventos'),
+(3, 'Bocaditos dulces'), 
+(3, 'Bocaditos salados'),
+(4, 'Desayuno clásico'),
+(4, 'Desayuno sorpresa'),
+(4, 'Empanadas'),
+(5, 'Queque de vainilla'),
+(5, 'Queque de naranja'),
+(6, 'Cheesecake'),
+(6, 'Tres leches en vaso'),
+(6, 'Pie de limón'),
+(7, 'Helado de fresa'),
+(7, 'Helado de chocolate');

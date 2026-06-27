@@ -188,22 +188,19 @@ if (tablaPedidos) {
 function mostrarPedidosAdmin() {
     const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
 
-    const totalPedidos = document.getElementById("totalPedidos");
-    const pedidosPendientes = document.getElementById("pedidosPendientes");
-    const ultimoPedido = document.getElementById("ultimoPedido");
+    const contadorPendientes = document.getElementById("contadorPendientes");
+    const contadorEnProceso = document.getElementById("contadorEnProceso");
+    const contadorListos = document.getElementById("contadorListos");
 
     tablaPedidos.innerHTML = "";
 
-    totalPedidos.textContent = pedidos.length;
-
     const pendientes = pedidos.filter(pedido => pedido.estado === "Pendiente");
-    pedidosPendientes.textContent = pendientes.length;
+    const enProceso = pedidos.filter(pedido => pedido.estado === "En proceso");
+    const listos = pedidos.filter(pedido => pedido.estado === "Listo");
 
-    if (pedidos.length > 0) {
-        ultimoPedido.textContent = pedidos[pedidos.length - 1].nombre;
-    } else {
-        ultimoPedido.textContent = "Sin pedidos";
-    }
+    contadorPendientes.textContent = pendientes.length;
+    contadorEnProceso.textContent = enProceso.length;
+    contadorListos.textContent = listos.length;
 
     if (pedidos.length === 0) {
         tablaPedidos.innerHTML = `
@@ -217,28 +214,28 @@ function mostrarPedidosAdmin() {
     pedidos.forEach((pedido, index) => {
         const fila = document.createElement("tr");
 
-    fila.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${pedido.nombre}</td>
-        <td>${pedido.telefono}</td>
-        <td>${pedido.producto}</td>
-        <td>${pedido.sabor}</td>
-        <td>${pedido.tamano}</td>
-        <td>${pedido.cantidad}</td>
-        <td>${pedido.fecha}</td>
-        <td>
-            <select class="select-estado" onchange="cambiarEstadoPedido(${index}, this.value)">
-                <option value="Pendiente" ${pedido.estado === "Pendiente" ? "selected" : ""}>Pendiente</option>
-                <option value="En proceso" ${pedido.estado === "En proceso" ? "selected" : ""}>En proceso</option>
-                <option value="Listo" ${pedido.estado === "Listo" ? "selected" : ""}>Listo</option>
-                <option value="Entregado" ${pedido.estado === "Entregado" ? "selected" : ""}>Entregado</option>
-                <option value="Cancelado" ${pedido.estado === "Cancelado" ? "selected" : ""}>Cancelado</option>
-            </select>
-        </td>
-        <td>
-            <button class="btn-ver" onclick="verDetallePedido(${index})">Ver</button>
-        </td>
-    `;
+        fila.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${pedido.nombre}</td>
+            <td>${pedido.telefono}</td>
+            <td>${pedido.producto}</td>
+            <td>${pedido.sabor}</td>
+            <td>${pedido.tamano}</td>
+            <td>${pedido.cantidad}</td>
+            <td>${pedido.fecha}</td>
+            <td>
+                <select class="select-estado" onchange="cambiarEstadoPedido(${index}, this.value)">
+                    <option value="Pendiente" ${pedido.estado === "Pendiente" ? "selected" : ""}>Pendiente</option>
+                    <option value="En proceso" ${pedido.estado === "En proceso" ? "selected" : ""}>En proceso</option>
+                    <option value="Listo" ${pedido.estado === "Listo" ? "selected" : ""}>Listo</option>
+                    <option value="Entregado" ${pedido.estado === "Entregado" ? "selected" : ""}>Entregado</option>
+                    <option value="Cancelado" ${pedido.estado === "Cancelado" ? "selected" : ""}>Cancelado</option>
+                </select>
+            </td>
+            <td>
+                <button class="btn-ver" onclick="verDetallePedido(${index})">Ver</button>
+            </td>
+        `;
 
         tablaPedidos.appendChild(fila);
     });

@@ -1,81 +1,74 @@
-CREATE DATABASE IF NOT EXISTS la_foresta_db;
+CREATE DATABASE IF NOT EXISTS la_foresta_db
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_general_ci;
+
 USE la_foresta_db;
 
--- Tabla de Clientes
-CREATE TABLE customer (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    full_name VARCHAR(150) NOT NULL,
-    phone VARCHAR(20) NOT NULL,
-    email VARCHAR(150) NOT NULL
+CREATE TABLE IF NOT EXISTS clientes (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(150) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    correo VARCHAR(150) NOT NULL
 );
 
--- Tabla de Categorías
-CREATE TABLE category (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
+CREATE TABLE IF NOT EXISTS categorias (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE
 );
 
--- Tabla de Productos del catálogo
-CREATE TABLE product (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    category_id INT NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    base_price DECIMAL(10,2),
-    FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE
+CREATE TABLE IF NOT EXISTS productos (
+    id_producto INT AUTO_INCREMENT PRIMARY KEY,
+    id_categoria INT NOT NULL,
+    nombre VARCHAR(120) NOT NULL,
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
 );
 
--- Tabla de Cabecera del Pedido
-CREATE TABLE customer_order (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT NOT NULL,
-    delivery_date DATE NOT NULL,
-    design_description TEXT NOT NULL,
-    additional_comments TEXT,
-    order_status ENUM('Pending', 'In Process', 'Ready', 'Delivered', 'Canceled') DEFAULT 'Pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (customer_id) REFERENCES customer(id) ON DELETE RESTRICT
+CREATE TABLE IF NOT EXISTS pedidos (
+    id_pedido INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT NOT NULL,
+    fecha_entrega DATE NOT NULL,
+    descripcion TEXT NOT NULL,
+    comentarios TEXT,
+    estado ENUM('Pendiente', 'En proceso', 'Listo', 'Entregado', 'Cancelado') DEFAULT 'Pendiente',
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente)
 );
 
--- Tabla de Detalles del Pedido
-CREATE TABLE order_detail (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_order_id INT NOT NULL,
-    product_id INT NOT NULL,
-    size VARCHAR(50) NOT NULL,
-    quantity INT NOT NULL,
-    FOREIGN KEY (customer_order_id) REFERENCES customer_order(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE RESTRICT
+CREATE TABLE IF NOT EXISTS detalle_pedido (
+    id_detalle INT AUTO_INCREMENT PRIMARY KEY,
+    id_pedido INT NOT NULL,
+    id_producto INT NOT NULL,
+    tamano VARCHAR(50) NOT NULL,
+    cantidad INT NOT NULL,
+    FOREIGN KEY (id_pedido) REFERENCES pedidos(id_pedido) ON DELETE CASCADE,
+    FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );
 
--- ==========================================
--- INSERCIÓN DE DATOS INICIALES
--- ==========================================
+INSERT IGNORE INTO categorias (id_categoria, nombre) VALUES
+(1, 'Torta'),
+(2, 'Torta personalizada'),
+(3, 'Bocaditos'),
+(4, 'Desayuno'),
+(5, 'Queque'),
+(6, 'Postre'),
+(7, 'Helado artesanal');
 
-INSERT INTO category (name) VALUES 
-('Torta'), 
-('Torta personalizada'), 
-('Bocaditos'), 
-('Desayuno'), 
-('Queque'), 
-('Postre'), 
-('Helado artesanal');
-
-INSERT INTO product (category_id, name) VALUES 
-(1, 'Torta de chocolate'), 
-(1, 'Torta tres leches'), 
-(1, 'Torta de fresa'),
-(2, 'Torta de cumpleaños'), 
-(2, 'Torta infantil'), 
-(2, 'Torta para eventos'),
-(3, 'Bocaditos dulces'), 
-(3, 'Bocaditos salados'),
-(4, 'Desayuno clásico'),
-(4, 'Desayuno sorpresa'),
-(4, 'Empanadas'),
-(5, 'Queque de vainilla'),
-(5, 'Queque de naranja'),
-(6, 'Cheesecake'),
-(6, 'Tres leches en vaso'),
-(6, 'Pie de limón'),
-(7, 'Helado de fresa'),
-(7, 'Helado de chocolate');
+INSERT IGNORE INTO productos (id_producto, id_categoria, nombre) VALUES
+(1, 1, 'Torta de chocolate'),
+(2, 1, 'Torta tres leches'),
+(3, 1, 'Torta de fresa'),
+(4, 2, 'Torta de cumpleaños'),
+(5, 2, 'Torta infantil'),
+(6, 2, 'Torta para eventos'),
+(7, 3, 'Bocaditos dulces'),
+(8, 3, 'Bocaditos salados'),
+(9, 4, 'Desayuno clásico'),
+(10, 4, 'Desayuno sorpresa'),
+(11, 4, 'Empanadas'),
+(12, 5, 'Queque de vainilla'),
+(13, 5, 'Queque de naranja'),
+(14, 6, 'Cheesecake'),
+(15, 6, 'Tres leches en vaso'),
+(16, 6, 'Pie de limón'),
+(17, 7, 'Helado de fresa'),
+(18, 7, 'Helado de chocolate');

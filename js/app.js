@@ -1,190 +1,180 @@
 console.log("Página de Pastelería La Foresta cargada correctamente.");
 
-/*CATALOGO*/
+/* CATALOGO */
 function mostrarCategoria(categoriaId, botonSeleccionado) {
-    const categorias = document.querySelectorAll(".categoria-contenido");
-    const botones = document.querySelectorAll(".categoria-btn");
+  const categorias = document.querySelectorAll(".categoria-contenido");
+  const botones = document.querySelectorAll(".categoria-btn");
 
-    categorias.forEach(categoria => {
-        categoria.classList.remove("activo");
-    });
+  categorias.forEach((categoria) => {
+    categoria.classList.remove("activo");
+  });
 
-    botones.forEach(boton => {
-        boton.classList.remove("activo");
-    });
+  botones.forEach((boton) => {
+    boton.classList.remove("activo");
+  });
 
-    document.getElementById(categoriaId).classList.add("activo");
-    botonSeleccionado.classList.add("activo");
+  document.getElementById(categoriaId).classList.add("activo");
+  botonSeleccionado.classList.add("activo");
 }
 
 /*PEDIDO*/
 const productoSelect = document.getElementById("producto");
 const saborSelect = document.getElementById("sabor");
+const tamanoSelect = document.getElementById("tamano");
 
-const opcionesPorProducto = {
-    "Torta": [
-        "Torta de chocolate",
-        "Torta tres leches",
-        "Torta de fresa"
-    ],
-    "Torta personalizada": [
-        "Torta de cumpleaños",
-        "Torta infantil",
-        "Torta para eventos"
-    ],
-    "Bocaditos": [
-        "Bocaditos dulces",
-        "Bocaditos salados"
-    ],
-    "Desayuno": [
-        "Desayuno clásico",
-        "Desayuno sorpresa",
-        "Empanadas"
-    ],
-    "Queque": [
-        "Queque de vainilla",
-        "Queque de naranja"
-    ],
-    "Postre": [
-        "Cheesecake",
-        "Tres leches en vaso",
-        "Pie de limón"
-    ],
-    "Helado artesanal": [
-        "Helado de fresa",
-        "Helado de chocolate"
-    ]
+const datosPorProducto = {
+  Torta: {
+    sabores: ["Torta de chocolate", "Torta tres leches", "Torta de fresa"],
+    tamanos: ["Pequeño", "Mediano", "Grande"],
+  },
+  "Torta personalizada": {
+    sabores: ["Torta de cumpleaños", "Torta infantil", "Torta para eventos"],
+    tamanos: ["Pequeño", "Mediano", "Grande", "Pisos múltiples"],
+  },
+  Bocaditos: {
+    sabores: ["Bocaditos dulces", "Bocaditos salados"],
+    tamanos: ["Por docena", "Dos Docenas", "Medio ciento"],
+  },
+  Desayuno: {
+    sabores: ["Desayuno clásico", "Desayuno sorpresa", "Empanadas"],
+    tamanos: ["Personal"],
+  },
+  Queque: {
+    sabores: ["Queque de vainilla", "Queque de naranja"],
+    tamanos: ["Porción", "Media porción", "Entero"],
+  },
+  Postre: {
+    sabores: ["Cheesecake", "Tres leches en vaso", "Pie de limón"],
+    tamanos: ["Personal", "Entero"],
+  },
+  "Helado artesanal": {
+    sabores: ["Helado de fresa", "Helado de chocolate"],
+    tamanos: ["Medio Litro", "1 Litro"],
+  },
 };
 
-if (productoSelect && saborSelect) {
-    productoSelect.addEventListener("change", function () {
-        const productoSeleccionado = productoSelect.value;
-
-        saborSelect.innerHTML = "";
-
-        const opcionInicial = document.createElement("option");
-        opcionInicial.value = "";
-        opcionInicial.textContent = "Selecciona una opción";
-        saborSelect.appendChild(opcionInicial);
-
-        if (opcionesPorProducto[productoSeleccionado]) {
-            opcionesPorProducto[productoSeleccionado].forEach(function (opcion) {
-                const nuevaOpcion = document.createElement("option");
-                nuevaOpcion.value = opcion;
-                nuevaOpcion.textContent = opcion;
-                saborSelect.appendChild(nuevaOpcion);
-            });
-        } else {
-            const opcionVacia = document.createElement("option");
-            opcionVacia.value = "";
-            opcionVacia.textContent = "Primero selecciona un producto";
-            saborSelect.appendChild(opcionVacia);
-        }
+function poblarSelect(selectElement, opciones, mensajeDefault) {
+  selectElement.innerHTML = `<option value="">${mensajeDefault}</option>`;
+  if (opciones) {
+    opciones.forEach((opcion) => {
+      const optionElement = document.createElement("option");
+      optionElement.value = opcion;
+      optionElement.textContent = opcion;
+      selectElement.appendChild(optionElement);
     });
+    selectElement.disabled = false;
+  } else {
+    selectElement.disabled = true;
+  }
 }
 
-/*CONTACTO*/
+if (productoSelect && saborSelect && tamanoSelect) {
+  productoSelect.addEventListener("change", function () {
+    const productoSeleccionado = productoSelect.value;
+    const datos = datosPorProducto[productoSeleccionado];
+
+    if (datos) {
+      poblarSelect(saborSelect, datos.sabores, "Selecciona una opción");
+      poblarSelect(tamanoSelect, datos.tamanos, "Selecciona un tamaño");
+    } else {
+      poblarSelect(saborSelect, null, "Primero selecciona un producto");
+      poblarSelect(tamanoSelect, null, "Primero selecciona un producto");
+    }
+  });
+}
+
+/* CONTACTO */
 const formContacto = document.getElementById("formContacto");
 
 if (formContacto) {
-    formContacto.addEventListener("submit", function(event) {
-        event.preventDefault();
+  formContacto.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-        const nombreContacto = document.getElementById("nombreContacto").value.trim();
-        const correoContacto = document.getElementById("correoContacto").value.trim();
-        const mensajeContacto = document.getElementById("mensajeContacto").value.trim();
-        const mensajeContactoTexto = document.getElementById("mensajeContactoTexto");
+    const nombreContacto = document.getElementById("nombreContacto").value.trim();
+    const correoContacto = document.getElementById("correoContacto").value.trim();
+    const mensajeContacto = document.getElementById("mensajeContacto").value.trim();
+    const mensajeContactoTexto = document.getElementById("mensajeContactoTexto");
 
-        if (nombreContacto === "" || correoContacto === "" || mensajeContacto === "") {
-            mensajeContactoTexto.textContent = "Por favor, completa todos los campos.";
-            mensajeContactoTexto.style.color = "#c9184a";
-            return;
-        }
+    if (nombreContacto === "" || correoContacto === "" || mensajeContacto === "") {
+      mensajeContactoTexto.textContent = "Por favor, completa todos los campos.";
+      mensajeContactoTexto.style.color = "#c9184a";
+      return;
+    }
 
-        mensajeContactoTexto.textContent = "Tu mensaje fue enviado correctamente. Te responderemos pronto.";
-        mensajeContactoTexto.style.color = "#2e7d32";
+    mensajeContactoTexto.textContent = "Tu mensaje fue enviado correctamente. Te responderemos pronto.";
+    mensajeContactoTexto.style.color = "#2e7d32";
 
-        formContacto.reset();
-    });
+    formContacto.reset();
+  });
 }
 
 /* REGISTRO REAL DE PEDIDOS */
 const formularioPedido = document.getElementById("formPedido");
 
 if (formularioPedido) {
-    formularioPedido.addEventListener("submit", async function(event) {
-        event.preventDefault();
+  formularioPedido.addEventListener("submit", async function (event) {
+    event.preventDefault();
 
-        const nombre = document.getElementById("nombre").value.trim();
-        const telefono = document.getElementById("telefono").value.trim();
-        const correo = document.getElementById("correo").value.trim();
-        const producto = document.getElementById("producto").value;
-        const sabor = document.getElementById("sabor").value;
-        const tamano = document.getElementById("tamano").value;
-        const cantidad = document.getElementById("cantidad").value;
-        const fecha = document.getElementById("fecha").value;
-        const descripcion = document.getElementById("descripcion").value.trim();
-        const comentarios = document.getElementById("comentarios").value.trim();
-        const mensaje = document.getElementById("mensajePedido");
+    const nombre = document.getElementById("nombre").value.trim();
+    const telefono = document.getElementById("telefono").value.trim();
+    const correo = document.getElementById("correo").value.trim();
+    const producto = document.getElementById("producto").value;
+    const sabor = document.getElementById("sabor").value;
+    const tamano = document.getElementById("tamano").value;
+    const cantidad = document.getElementById("cantidad").value;
+    const fecha = document.getElementById("fecha").value;
+    const descripcion = document.getElementById("descripcion").value.trim();
+    const comentarios = document.getElementById("comentarios").value.trim();
+    const mensaje = document.getElementById("mensajePedido");
 
-        if (
-            nombre === "" ||
-            telefono === "" ||
-            correo === "" ||
-            producto === "" ||
-            sabor === "" ||
-            tamano === "" ||
-            cantidad === "" ||
-            fecha === "" ||
-            descripcion === ""
-        ) {
-            mensaje.textContent = "Por favor, completa los campos obligatorios del pedido.";
-            mensaje.style.color = "#c9184a";
-            return;
-        }
+    if (nombre === "" || telefono === "" || correo === "" || producto === "" || sabor === "" || tamano === "" || cantidad === "" || fecha === "" || descripcion === "") {
+      mensaje.textContent = "Por favor, completa los campos obligatorios del pedido.";
+      mensaje.style.color = "#c9184a";
+      return;
+    }
 
-        const nuevoPedido = {
-            nombre: nombre,
-            telefono: telefono,
-            correo: correo,
-            producto: producto,
-            sabor: sabor,
-            tamano: tamano,
-            cantidad: cantidad,
-            fecha: fecha,
-            descripcion: descripcion,
-            comentarios: comentarios
-        };
+    const nuevoPedido = {
+      nombre: nombre,
+      telefono: telefono,
+      correo: correo,
+      producto: producto,
+      sabor: sabor,
+      tamano: tamano,
+      cantidad: cantidad,
+      fecha: fecha,
+      descripcion: descripcion,
+      comentarios: comentarios,
+    };
 
-        try {
-            const respuesta = await fetch("php/guardar_pedido.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(nuevoPedido)
-            });
+    try {
+      const respuesta = await fetch("php/guardar_pedido.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(nuevoPedido),
+      });
 
-            const resultado = await respuesta.json();
+      const resultado = await respuesta.json();
 
-            if (resultado.success) {
-                mensaje.textContent = resultado.mensaje;
-                mensaje.style.color = "#2e7d32";
+      if (resultado.success) {
+        mensaje.textContent = resultado.mensaje;
+        mensaje.style.color = "#2e7d32";
 
-                formularioPedido.reset();
+        formularioPedido.reset();
 
-                const saborSelect = document.getElementById("sabor");
-                saborSelect.innerHTML = `<option value="">Primero selecciona un producto</option>`;
-            } else {
-                mensaje.textContent = resultado.mensaje;
-                mensaje.style.color = "#c9184a";
-            }
-
-        } catch (error) {
-            mensaje.textContent = "No se pudo registrar el pedido. Verifica que Apache y MySQL estén activos.";
-            mensaje.style.color = "#c9184a";
-        }
-    });
+        // Resetear selects dinámicos al estado inicial
+        poblarSelect(document.getElementById("sabor"), null, "Primero selecciona un producto");
+        poblarSelect(document.getElementById("tamano"), null, "Primero selecciona un producto");
+      } else {
+        mensaje.textContent = resultado.mensaje;
+        mensaje.style.color = "#c9184a";
+      }
+    } catch (error) {
+      mensaje.textContent = "No se pudo registrar el pedido. Verifica que Apache y MySQL estén activos.";
+      mensaje.style.color = "#c9184a";
+    }
+  });
 }
 
 /* MOSTRAR PEDIDOS REALES EN ADMIN */
@@ -192,94 +182,92 @@ const tablaPedidos = document.getElementById("tablaPedidos");
 let pedidosAdmin = [];
 
 if (tablaPedidos) {
-    mostrarPedidosAdmin();
+  mostrarPedidosAdmin();
 }
 
 const buscarCliente = document.getElementById("buscarCliente");
 
 if (buscarCliente) {
-    buscarCliente.addEventListener("input", function() {
-        mostrarPedidosAdmin();
-    });
+  buscarCliente.addEventListener("input", function () {
+    mostrarPedidosAdmin();
+  });
 }
 
 const ordenFecha = document.getElementById("ordenFecha");
 
 if (ordenFecha) {
-    ordenFecha.addEventListener("change", function() {
-        mostrarPedidosAdmin();
-    });
+  ordenFecha.addEventListener("change", function () {
+    mostrarPedidosAdmin();
+  });
 }
 
 /* FORMATEAR FECHA: de 2026-06-30 a 30/06/2026 */
 function formatearFecha(fecha) {
-    if (!fecha) {
-        return "";
-    }
+  if (!fecha) {
+    return "";
+  }
 
-    const partes = fecha.split("-");
-    const anio = partes[0];
-    const mes = partes[1];
-    const dia = partes[2];
+  const partes = fecha.split("-");
+  const anio = partes[0];
+  const mes = partes[1];
+  const dia = partes[2];
 
-    return `${dia}/${mes}/${anio}`;
+  return `${dia}/${mes}/${anio}`;
 }
 
 async function mostrarPedidosAdmin() {
-    const contadorPendientes = document.getElementById("contadorPendientes");
-    const contadorEnProceso = document.getElementById("contadorEnProceso");
-    const contadorListos = document.getElementById("contadorListos");
-    const buscarCliente = document.getElementById("buscarCliente");
-    const ordenFecha = document.getElementById("ordenFecha");
+  const contadorPendientes = document.getElementById("contadorPendientes");
+  const contadorEnProceso = document.getElementById("contadorEnProceso");
+  const contadorListos = document.getElementById("contadorListos");
+  const buscarCliente = document.getElementById("buscarCliente");
+  const ordenFecha = document.getElementById("ordenFecha");
 
-    tablaPedidos.innerHTML = "";
+  tablaPedidos.innerHTML = "";
 
-    let textoBusqueda = "";
-    let tipoOrden = "";
+  let textoBusqueda = "";
+  let tipoOrden = "";
 
-    if (buscarCliente) {
-        textoBusqueda = buscarCliente.value.trim();
-    }
+  if (buscarCliente) {
+    textoBusqueda = buscarCliente.value.trim();
+  }
 
-    if (ordenFecha) {
-        tipoOrden = ordenFecha.value;
-    }
+  if (ordenFecha) {
+    tipoOrden = ordenFecha.value;
+  }
 
-    try {
-        const respuesta = await fetch(
-            `php/listar_pedidos.php?busqueda=${encodeURIComponent(textoBusqueda)}&orden=${encodeURIComponent(tipoOrden)}`
-        );
+  try {
+    const respuesta = await fetch(`php/listar_pedidos.php?busqueda=${encodeURIComponent(textoBusqueda)}&orden=${encodeURIComponent(tipoOrden)}`);
 
-        const resultado = await respuesta.json();
+    const resultado = await respuesta.json();
 
-        if (!resultado.success) {
-            tablaPedidos.innerHTML = `
+    if (!resultado.success) {
+      tablaPedidos.innerHTML = `
                 <tr>
                     <td colspan="10">No se pudieron cargar los pedidos.</td>
                 </tr>
             `;
-            return;
-        }
+      return;
+    }
 
-        pedidosAdmin = resultado.pedidos;
+    pedidosAdmin = resultado.pedidos;
 
-        contadorPendientes.textContent = resultado.contadores.pendientes;
-        contadorEnProceso.textContent = resultado.contadores.enProceso;
-        contadorListos.textContent = resultado.contadores.listos;
+    contadorPendientes.textContent = resultado.contadores.pendientes;
+    contadorEnProceso.textContent = resultado.contadores.enProceso;
+    contadorListos.textContent = resultado.contadores.listos;
 
-        if (pedidosAdmin.length === 0) {
-            tablaPedidos.innerHTML = `
+    if (pedidosAdmin.length === 0) {
+      tablaPedidos.innerHTML = `
                 <tr>
                     <td colspan="10">Todavía no hay pedidos registrados.</td>
                 </tr>
             `;
-            return;
-        }
+      return;
+    }
 
-        pedidosAdmin.forEach((pedido, index) => {
-            const fila = document.createElement("tr");
+    pedidosAdmin.forEach((pedido, index) => {
+      const fila = document.createElement("tr");
 
-            fila.innerHTML = `
+      fila.innerHTML = `
                 <td>${pedido.id}</td>
                 <td>${pedido.nombre}</td>
                 <td>${pedido.telefono}</td>
@@ -302,29 +290,28 @@ async function mostrarPedidosAdmin() {
                 </td>
             `;
 
-            tablaPedidos.appendChild(fila);
-        });
-
-    } catch (error) {
-        tablaPedidos.innerHTML = `
+      tablaPedidos.appendChild(fila);
+    });
+  } catch (error) {
+    tablaPedidos.innerHTML = `
             <tr>
                 <td colspan="10">Error al conectar con PHP. Verifica que el proyecto esté en htdocs y Apache esté activo.</td>
             </tr>
         `;
-    }
+  }
 }
 
 /* VER DETALLE DEL PEDIDO */
 function verDetallePedido(index) {
-    const pedido = pedidosAdmin[index];
-    const contenidoDetalle = document.getElementById("contenidoDetalle");
+  const pedido = pedidosAdmin[index];
+  const contenidoDetalle = document.getElementById("contenidoDetalle");
 
-    if (!pedido) {
-        contenidoDetalle.innerHTML = `<p>No se encontró información del pedido.</p>`;
-        return;
-    }
+  if (!pedido) {
+    contenidoDetalle.innerHTML = `<p>No se encontró información del pedido.</p>`;
+    return;
+  }
 
-    contenidoDetalle.innerHTML = `
+  contenidoDetalle.innerHTML = `
         <div class="detalle-card">
             <p><strong>Cliente:</strong> ${pedido.nombre}</p>
             <p><strong>Celular:</strong> ${pedido.telefono}</p>
@@ -343,75 +330,74 @@ function verDetallePedido(index) {
 
 /* CAMBIAR ESTADO DEL PEDIDO */
 async function cambiarEstadoPedido(idPedido, nuevoEstado) {
-    const contenidoDetalle = document.getElementById("contenidoDetalle");
+  const contenidoDetalle = document.getElementById("contenidoDetalle");
 
-    try {
-        const respuesta = await fetch("php/actualizar_estado.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id: idPedido,
-                estado: nuevoEstado
-            })
-        });
+  try {
+    const respuesta = await fetch("php/actualizar_estado.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: idPedido,
+        estado: nuevoEstado,
+      }),
+    });
 
-        const resultado = await respuesta.json();
+    const resultado = await respuesta.json();
 
-        if (resultado.success) {
-            await mostrarPedidosAdmin();
+    if (resultado.success) {
+      await mostrarPedidosAdmin();
 
-            if (contenidoDetalle) {
-                contenidoDetalle.innerHTML = `
+      if (contenidoDetalle) {
+        contenidoDetalle.innerHTML = `
                     <p>El estado del pedido fue actualizado a <strong>${nuevoEstado}</strong>.</p>
                 `;
-            }
-        } else {
-            if (contenidoDetalle) {
-                contenidoDetalle.innerHTML = `<p>${resultado.mensaje}</p>`;
-            }
-        }
-
-    } catch (error) {
-        if (contenidoDetalle) {
-            contenidoDetalle.innerHTML = `<p>No se pudo actualizar el estado del pedido.</p>`;
-        }
+      }
+    } else {
+      if (contenidoDetalle) {
+        contenidoDetalle.innerHTML = `<p>${resultado.mensaje}</p>`;
+      }
     }
+  } catch (error) {
+    if (contenidoDetalle) {
+      contenidoDetalle.innerHTML = `<p>No se pudo actualizar el estado del pedido.</p>`;
+    }
+  }
 }
 
 /* LOGIN ADMIN */
 const formLogin = document.getElementById("formLogin");
 
 if (formLogin) {
-    formLogin.addEventListener("submit", function(event) {
-        event.preventDefault();
+  formLogin.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-        const usuario = document.getElementById("usuario").value.trim();
-        const clave = document.getElementById("clave").value.trim();
-        const mensajeLogin = document.getElementById("mensajeLogin");
+    const usuario = document.getElementById("usuario").value.trim();
+    const clave = document.getElementById("clave").value.trim();
+    const mensajeLogin = document.getElementById("mensajeLogin");
 
-        if (usuario === "admin" && clave === "123456") {
-            localStorage.setItem("adminLogueado", "true");
-            window.location.href = "admin.html";
-        } else {
-            mensajeLogin.textContent = "Usuario o contraseña incorrectos.";
-            mensajeLogin.style.color = "#c9184a";
-        }
-    });
+    if (usuario === "admin" && clave === "123456") {
+      localStorage.setItem("adminLogueado", "true");
+      window.location.href = "admin.html";
+    } else {
+      mensajeLogin.textContent = "Usuario o contraseña incorrectos.";
+      mensajeLogin.style.color = "#c9184a";
+    }
+  });
 }
 
 /* PROTEGER VISTA ADMIN */
 if (window.location.pathname.includes("admin.html")) {
-    const adminLogueado = localStorage.getItem("adminLogueado");
+  const adminLogueado = localStorage.getItem("adminLogueado");
 
-    if (adminLogueado !== "true") {
-        window.location.href = "login.html";
-    }
+  if (adminLogueado !== "true") {
+    window.location.href = "login.html";
+  }
 }
 
 /* CERRAR SESIÓN */
 function cerrarSesion() {
-    localStorage.removeItem("adminLogueado");
-    window.location.href = "login.html";
+  localStorage.removeItem("adminLogueado");
+  window.location.href = "login.html";
 }

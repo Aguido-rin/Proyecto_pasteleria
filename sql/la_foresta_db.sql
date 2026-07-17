@@ -60,6 +60,83 @@ CREATE TABLE IF NOT EXISTS precios_producto (
         UNIQUE (id_producto, tamano)
 );
 
+INSERT INTO precios_producto (id_producto, tamano, precio) VALUES
+
+-- Tortas
+(1, 'Pequeño', 35.00),
+(1, 'Mediano', 50.00),
+(1, 'Grande', 70.00),
+
+(2, 'Pequeño', 38.00),
+(2, 'Mediano', 55.00),
+(2, 'Grande', 75.00),
+
+(3, 'Pequeño', 35.00),
+(3, 'Mediano', 50.00),
+(3, 'Grande', 70.00),
+
+-- Tortas personalizadas
+(4, 'Pequeño', 50.00),
+(4, 'Mediano', 70.00),
+(4, 'Grande', 95.00),
+(4, 'Pisos múltiples', 150.00),
+
+(5, 'Pequeño', 55.00),
+(5, 'Mediano', 75.00),
+(5, 'Grande', 100.00),
+(5, 'Pisos múltiples', 160.00),
+
+(6, 'Pequeño', 60.00),
+(6, 'Mediano', 85.00),
+(6, 'Grande', 120.00),
+(6, 'Pisos múltiples', 180.00),
+
+-- Bocaditos
+(7, 'Por docena', 20.00),
+(7, 'Dos Docenas', 38.00),
+(7, 'Medio ciento', 75.00),
+
+(8, 'Por docena', 24.00),
+(8, 'Dos Docenas', 45.00),
+(8, 'Medio ciento', 85.00),
+
+-- Desayunos
+(9, 'Personal', 25.00),
+(10, 'Personal', 40.00),
+(11, 'Personal', 18.00),
+
+-- Queques
+(12, 'Porción', 6.00),
+(12, 'Media porción', 18.00),
+(12, 'Entero', 35.00),
+
+(13, 'Porción', 6.00),
+(13, 'Media porción', 18.00),
+(13, 'Entero', 35.00),
+
+-- Postres
+(14, 'Personal', 12.00),
+(14, 'Entero', 55.00),
+
+(15, 'Personal', 10.00),
+(15, 'Entero', 45.00),
+
+(16, 'Personal', 10.00),
+(16, 'Entero', 45.00),
+
+-- Helados artesanales
+(17, 'Medio Litro', 15.00),
+(17, '1 Litro', 28.00),
+
+(18, 'Medio Litro', 15.00),
+(18, '1 Litro', 28.00);
+
+ALTER TABLE detalle_pedido
+ADD COLUMN precio_unitario DECIMAL(10,2) NOT NULL DEFAULT 0.00
+AFTER cantidad,
+ADD COLUMN subtotal DECIMAL(10,2) NOT NULL DEFAULT 0.00
+AFTER precio_unitario;
+
 INSERT IGNORE INTO categorias (id_categoria, nombre) VALUES
 (1, 'Torta'),
 (2, 'Torta personalizada'),

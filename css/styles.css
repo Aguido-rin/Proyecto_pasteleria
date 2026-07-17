@@ -1209,3 +1209,35 @@ footer {
         text-align: center;
     }
 }
+
+
+
+
+
+
+/* ========================= */
+/* RESUMEN-PRECIO*/
+/* ========================= */
+.resumen-precio {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 20px;
+    border: 2px solid #f5bfd3;
+    border-radius: 18px;
+    background-color: #fff7fa;
+}
+
+.resumen-precio h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.resumen-precio p {
+    margin: 6px 0;
+}
+
+.resumen-precio .total {
+    margin-top: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}

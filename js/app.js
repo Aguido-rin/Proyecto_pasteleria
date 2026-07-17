@@ -275,7 +275,7 @@ async function mostrarPedidosAdmin() {
                 <td>${pedido.sabor}</td>
                 <td>${pedido.tamano}</td>
                 <td>${pedido.cantidad}</td>
-                <td>${formatearFecha(pedido.fecha)}</td>
+                <td>${pedido.fecha}</td>
                 <td>
                     <select class="select-estado" onchange="cambiarEstadoPedido(${pedido.id}, this.value)">
                         <option value="Pendiente" ${pedido.estado === "Pendiente" ? "selected" : ""}>Pendiente</option>

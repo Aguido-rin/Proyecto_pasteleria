@@ -1210,34 +1210,105 @@ footer {
     }
 }
 
+/* =============================== */
+/* RESUMEN DEL PEDIDO */
+/* =============================== */
 
-
-
-
-
-/* ========================= */
-/* RESUMEN-PRECIO*/
-/* ========================= */
 .resumen-precio {
-    margin-top: 25px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 28px;
     margin-bottom: 25px;
-    padding: 20px;
-    border: 2px solid #f5bfd3;
-    border-radius: 18px;
-    background-color: #fff7fa;
+    padding: 25px 30px;
+    background-color: #fff9fc;
+    border: 2px solid #ffb6d2;
+    border-radius: 20px;
 }
 
 .resumen-precio h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
+    margin: 0 0 22px;
+    color: #dd2c7d;
+    font-size: 28px;
+    font-weight: 700;
 }
 
-.resumen-precio p {
-    margin: 6px 0;
+.fila-resumen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f5d6e2;
+    color: #47415f;
+    font-size: 18px;
 }
 
-.resumen-precio .total {
-    margin-top: 12px;
-    font-size: 1.2rem;
-    font-weight: bold;
+.fila-resumen:last-child {
+    border-bottom: none;
+}
+
+.fila-resumen span {
+    font-weight: 600;
+}
+
+.fila-resumen strong {
+    color: #7f3555;
+    text-align: right;
+}
+
+.total-resumen {
+    margin-top: 10px;
+    padding-top: 18px;
+    border-top: 2px solid #ffb6d2;
+    border-bottom: none;
+    font-size: 21px;
+}
+
+.total-resumen strong {
+    color: #dd2c7d;
+    font-size: 23px;
+}
+
+.btn-enviar {
+    width: 100%;
+    margin-top: 5px;
+    padding: 17px;
+    border: none;
+    border-radius: 35px;
+    background-color: #f9a8c7;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-enviar:hover {
+    background-color: #f58db8;
+    transform: translateY(-2px);
+}
+
+.btn-enviar:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+    .resumen-precio {
+        padding: 20px;
+    }
+
+    .resumen-precio h3 {
+        font-size: 24px;
+    }
+
+    .fila-resumen {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+        font-size: 16px;
+    }
+
+    .fila-resumen strong {
+        text-align: left;
+    }
 }

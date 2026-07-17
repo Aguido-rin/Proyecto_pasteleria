@@ -44,6 +44,22 @@ CREATE TABLE IF NOT EXISTS detalle_pedido (
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );
 
+CREATE TABLE IF NOT EXISTS precios_producto (
+    id_precio INT AUTO_INCREMENT PRIMARY KEY,
+    id_producto INT NOT NULL,
+    tamano VARCHAR(50) NOT NULL,
+    precio DECIMAL(10,2) NOT NULL,
+    
+    CONSTRAINT fk_precio_producto
+        FOREIGN KEY (id_producto)
+        REFERENCES productos(id_producto)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    CONSTRAINT uk_producto_tamano
+        UNIQUE (id_producto, tamano)
+);
+
 INSERT IGNORE INTO categorias (id_categoria, nombre) VALUES
 (1, 'Torta'),
 (2, 'Torta personalizada'),
